@@ -1,3 +1,4 @@
+
 package com.busbooking.service;
 
 import com.busbooking.dto.BusRequest;
@@ -22,6 +23,14 @@ public class BusService {
 
     private final BusRepository busRepository;
     private final SeatRepository seatRepository;
+
+    @Transactional(readOnly = true)
+    public List<BusResponse> getAllBuses() {
+        return busRepository.findAll()
+                .stream()
+                .map(this::toResponse)
+                .toList();
+    }
 
     @Transactional(readOnly = true)
     public List<BusResponse> search(String source, String destination, LocalDate date) {

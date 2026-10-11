@@ -1,3 +1,4 @@
+
 package com.busbooking.controller;
 
 import com.busbooking.dto.BusRequest;
@@ -21,10 +22,16 @@ public class BusController {
 
     private final BusService busService;
 
+    @GetMapping
+    public List<BusResponse> getAllBuses() {
+        return busService.getAllBuses();
+    }
+
     @GetMapping("/search")
-    public List<BusResponse> search(@RequestParam String source,
-                                    @RequestParam String destination,
-                                    @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+    public List<BusResponse> search(
+            @RequestParam String source,
+            @RequestParam String destination,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
         return busService.search(source, destination, date);
     }
 
